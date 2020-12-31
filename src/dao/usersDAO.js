@@ -16,6 +16,10 @@ class UserDao {
     return await User.findById(_id)
       .select('-__v -createdAt -updatedAt');
   }
+
+  async findByEmail(email) {
+    return await User.findOne({ email });
+  }
 }
 
 const instance = new UserDao();
