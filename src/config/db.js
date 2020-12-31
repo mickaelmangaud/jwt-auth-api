@@ -9,10 +9,4 @@ export const db = mongoose.connection;
 db.on('error', error => console.log('mongoose Error', error));
 db.on('open', () => {
   console.log('MONGOOSE CONNECTION OK');
-  const user = new User({
-    email: 'mickael@mickael.com',
-    password: 'okcomputer'
-  });
-
-  user.save();
 });

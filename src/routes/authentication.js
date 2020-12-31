@@ -2,8 +2,8 @@ import { Router } from 'express';
 
 const router = new Router();
 
-router.get('/register', (req, res) => {
-  res.json({ message: 'Register route' });
-});
+router.get('/login', (req, res) => {
+  res.send({ message: 'login route' })
+})
 
 export default router;
