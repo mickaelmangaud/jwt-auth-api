@@ -1,8 +1,8 @@
 import { UsersDAO } from '../dao';
 import { ConflictError } from '../errors';
-import jwt from 'jsonwebtoken';
+import { generateToken } from '../utils';
 
-const usersController = {
+const UsersController = {
   register: async (req) => {
     const foundUser = await UsersDAO.findByEmail(req.body.email);
     if (foundUser) {
@@ -12,13 +12,10 @@ const usersController = {
     const user = await UsersDAO.create(req.body);
     const createdUser = await UsersDAO.findById(user._id);
 
-    const token = jwt.sign(
-      { _id: user._id, role: user.role }, 
-      process.env.JWT_SECRET
-    );
+    const token = generateToken({ _id: user._id, role: user.role })
 
     return { user: createdUser, token };
   }
 };
 
-export default usersController;
+export default UsersController;

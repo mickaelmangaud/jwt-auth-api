@@ -3,5 +3,4 @@
 TODO :
 
 - Créer un logger
-- Créer des erreurs custom
-- Choisir si je crée des controlleurs ou pas
+- En cas d'erreur de role utilisateur, gérer le cas dans le errorHandler pour retourner une erreur conforme
