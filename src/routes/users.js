@@ -1,22 +1,15 @@
 import { Router } from 'express';
-import { UsersDAO } from '../dao';
-import jwt from 'jsonwebtoken';
+import { usersController } from '../controllers';
+import { sendResponse } from '../utils';
+import { StatusCodes } from 'http-status-codes';
 
 const router = new Router();
 
 router.put('/register', async (req, res, next) => {
   // TODO: validate payload
-  const foundUser = await UsersDAO.findByEmail(req.body.email);
-  if (foundUser) {
-    next(new Error('UTILISATEUR DEJA EXISTANT'));
-  }
-
-  const user = await UsersDAO.create(req.body);
-  const createdUser = await UsersDAO.findById(user._id);
-
-  const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET);
-
-  res.json({ user: createdUser, token });
+  usersController.register(req, res, next)
+    .then(payload => sendResponse(res, StatusCodes.CREATED, payload))
+    .catch(next)
 });
 
 export default router;
