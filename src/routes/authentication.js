@@ -3,6 +3,7 @@ import { AuthController } from "../controllers";
 import { sendResponse } from "../utils";
 import { StatusCodes } from "http-status-codes";
 import { InvalidPayloadError } from "../errors";
+import { cookiesOptions } from "../config";
 import loginSchema from "../validation/login.schema.json";
 import Ajv from "ajv";
 
@@ -16,7 +17,10 @@ router.post("/login", (req, res, next) => {
     }
 
     AuthController.login(req.body)
-        .then((payload) => sendResponse(res, StatusCodes.OK, payload))
+        .then((payload) => {
+            res.cookie("access_token", payload.token, cookiesOptions);
+            sendResponse(res, StatusCodes.OK, payload);
+        })
         .catch(next);
 });
 
