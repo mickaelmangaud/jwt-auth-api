@@ -1,26 +1,24 @@
-import { User } from '../models';
+import { User } from "../models";
 
 class UserDao {
-  constructor() {
-    if(!UserDao.instance) {
-      UserDao.instance = this;
+    constructor() {
+        if (!UserDao.instance) {
+            UserDao.instance = this;
+        }
+        return UserDao.instance;
     }
-    return UserDao.instance;
-  }
-  
-  async create(user) {
-    return await User.create(user);
-  }
 
-  async findById(_id) {
-    return await User.findById(_id)
-      .select('-__v -createdAt -updatedAt -password');
-  }
+    async create(user) {
+        return await User.create(user);
+    }
 
-  async findByEmail(email) {
-    return await User.findOne({ email })
-      .select('-__v -createdAt -updatedAt');
-  }
+    async findById(_id) {
+        return await User.findById(_id).select("-__v -createdAt -updatedAt -password");
+    }
+
+    async findByEmail(email) {
+        return await User.findOne({ email }).select("-__v -createdAt -updatedAt");
+    }
 }
 
 const instance = new UserDao();
