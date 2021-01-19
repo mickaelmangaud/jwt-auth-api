@@ -1,10 +1,10 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from 'http-status-codes';
 
 const errorHandler = (error, req, res, next) => {
   if (!res.headersSent && error) {
-    res.contentType("application/problem+json");
+    res.contentType('application/problem+json');
 
-    if (error.name === "TokenExpiredError" || error.name === "JsonWebTokenError") {
+    if (error.name === 'TokenExpiredError' || error.name === 'JsonWebTokenError') {
       error.status = StatusCodes.UNAUTHORIZED;
     }
 

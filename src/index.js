@@ -1,9 +1,9 @@
-import "dotenv/config";
-import "./config/db";
-import express from "express";
-import { registerRoutes } from "./routes";
-import { registerMiddlewares } from "./middlewares";
-import { errorHandler, notFoundHandler } from "./middlewares";
+import 'dotenv/config';
+import './config/db';
+import express from 'express';
+import { registerRoutes } from './routes';
+import { registerMiddlewares } from './middlewares';
+import { errorHandler, notFoundHandler } from './middlewares';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
