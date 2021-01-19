@@ -3,9 +3,9 @@ import { AuthController } from '../controllers';
 import { sendResponse } from '../utils';
 import { StatusCodes } from 'http-status-codes';
 import { InvalidPayloadError } from '../errors';
-import loginSchema from '../validation/login.schema.json';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
+import loginSchema from '../validation/login.schema.json';
 
 const router = new Router();
 const ajv = new Ajv({ allErrors: true });

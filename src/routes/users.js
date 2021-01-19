@@ -16,7 +16,7 @@ router.put('/register', async (req, res, next) => {
   const isValidCredentials = validateRegistration(req.body);
   if (!isValidCredentials) {
     const errors = validateRegistration.errors.map(error => error.message);
-    return next(new InvalidPayloadError('Mauvais', errors));
+    return next(new InvalidPayloadError('Bad credentials', errors));
   }
 
   UsersController.register(req, res, next)
