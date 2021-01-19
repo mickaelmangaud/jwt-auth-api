@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Login",
-  "description": "Login credentials",
+  "title": "Register",
+  "description": "Register user",
   "type": "object",
   "properties": {
     "email": {

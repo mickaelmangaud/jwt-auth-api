@@ -883,6 +883,11 @@ accepts@~1.3.7:
     mime-types "~2.1.24"
     negotiator "0.6.2"
 
+ajv-errors@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ajv-errors/-/ajv-errors-2.0.0.tgz#d48231d8de44bf52c517bbfcb298bb628ead4f89"
+  integrity sha512-Qi+I07e2Kc7Tgza7cZMvROyWuWmandN0BLbAiQUGLAMN/IfwIyg5kjg1qz/+q7p+uJ/x3THplnuGmihg/+WnXg==
+
 ajv@^7.0.2:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-7.0.3.tgz#13ae747eff125cafb230ac504b2406cf371eece2"

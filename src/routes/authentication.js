@@ -3,17 +3,20 @@ import { AuthController } from '../controllers';
 import { sendResponse } from '../utils';
 import { StatusCodes } from 'http-status-codes';
 import { InvalidPayloadError } from '../errors';
-import { cookiesOptions } from '../config';
 import loginSchema from '../validation/login.schema.json';
 import Ajv from 'ajv';
+import ajvErrors from 'ajv-errors';
 
 const router = new Router();
 const ajv = new Ajv({ allErrors: true });
+ajvErrors(ajv);
 const validateLogin = ajv.compile(loginSchema);
 
 router.post('/login', (req, res, next) => {
-  if (!validateLogin(req.body)) {
-    return next(new InvalidPayloadError('Invalid email or password', validateLogin.errors));
+  const isValidCredentials = validateLogin(req.body);
+  if (!isValidCredentials) {
+    const errors = validateLogin.errors.map(error => error.message);
+    return next(new InvalidPayloadError('Invalid email or password', errors));
   }
 
   AuthController.login(req.body)
