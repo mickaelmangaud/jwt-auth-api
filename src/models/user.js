@@ -14,18 +14,18 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["user", "admin"],
-      default: "user",
+      enum: ['user', 'admin'],
+      default: 'user',
       required: true,
     },
   },
   { timestamps: true }
 );
 
-userSchema.pre("save", async function () {
+userSchema.pre('save', async function () {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(this.password, salt);
   this.password = hash;
 });
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model('User', userSchema);

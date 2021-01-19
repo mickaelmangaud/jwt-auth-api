@@ -2,7 +2,7 @@ import { BaseError } from "./baseError";
 import { StatusCodes } from "http-status-codes";
 
 export class UnauthorizedError extends BaseError {
-  constructor(message, code = "Unauthorized") {
-    super(message, code, StatusCodes.UNAUTHORIZED);
+  constructor(message, detailedMessages = [], code = "Unauthorized") {
+    super(message, detailedMessages, code, StatusCodes.UNAUTHORIZED);
   }
 }
