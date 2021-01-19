@@ -12,16 +12,13 @@ const ajv = new Ajv({ allErrors: true });
 const validateLogin = ajv.compile(loginSchema);
 
 router.post("/login", (req, res, next) => {
-    if (!validateLogin(req.body)) {
-        return next(new InvalidPayloadError("Invalid email or password", validateLogin.errors));
-    }
+  if (!validateLogin(req.body)) {
+    return next(new InvalidPayloadError("Invalid email or password", validateLogin.errors));
+  }
 
-    AuthController.login(req.body)
-        .then((payload) => {
-            res.cookie("access_token", payload.token, cookiesOptions);
-            sendResponse(res, StatusCodes.OK, payload);
-        })
-        .catch(next);
+  AuthController.login(req.body)
+    .then((payload) => sendResponse(res, StatusCodes.OK, payload))
+    .catch(next);
 });
 
 export default router;

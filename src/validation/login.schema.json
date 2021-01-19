@@ -4,17 +4,20 @@
   "description": "Login credentials",
   "type": "object",
   "properties": {
-      "email": {
-          "description": "User email",
-          "type": "string",
-          "minLength": 4
-      },
-      "password": {
-          "description": "User password",
-          "type": "string",
-          "minLength": 6
-      }
+    "email": {
+      "description": "User email",
+      "type": "string",
+      "minLength": 4
+    },
+    "password": {
+      "description": "User password",
+      "type": "string",
+      "minLength": 6
+    }
   },
-  "required": ["email", "password"],
+  "required": [
+    "email",
+    "password"
+  ],
   "additionalProperties": false
 }
