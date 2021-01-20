@@ -9,6 +9,8 @@ async function register(req) {
   }
 
   const user = await UsersDAO.create(req.body);
+  console.log('USER CREATED BY CREATE', user);
+
   const createdUser = await UsersDAO.findById(user.id);
 
   const token = generateToken(user);

@@ -23,6 +23,9 @@ const User = sequelize.define('User', {
       const hash = await bcrypt.hash(user.password, salt);
       user.password = hash;
     }
+  },
+  defaultScope: {
+    attributes: { exclude: ['password'] }
   }
 });
 
