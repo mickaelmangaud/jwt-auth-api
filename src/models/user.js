@@ -1,31 +1,42 @@
-import mongoose from 'mongoose';
+import { sequelize } from '../config/db';
+import { DataTypes } from 'sequelize';
 import bcrypt from 'bcryptjs';
 
-const userSchema = new mongoose.Schema(
-  {
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    role: {
-      type: String,
-      enum: ['user', 'admin'],
-      default: 'user',
-      required: true,
-    },
+const User = sequelize.define('User', {
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
-  { timestamps: true }
-);
-
-userSchema.pre('save', async function () {
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(this.password, salt);
-  this.password = hash;
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  role: {
+    type: DataTypes.ENUM,
+    values: ['user', 'admin'],
+    defaultValue: 'user'
+  }
+}, {
+  hooks: {
+    beforeCreate: async (user, _) => {
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(user.password, salt);
+      user.password = hash;
+    }
+  }
 });
 
-export default mongoose.model('User', userSchema);
+User.sync({ force:true }).then(() => {
+  User.create({
+    email: 'mickael@gmail.com',
+    password: 'okcomputer',
+    role: 'admin'
+  })
+
+  User.create({
+    email: 'jade@gmail.com',
+    password: 'okcomputer'
+  })
+});
+
+export default User;

@@ -9,7 +9,7 @@ async function register(req) {
   }
 
   const user = await UsersDAO.create(req.body);
-  const createdUser = await UsersDAO.findById(user._id);
+  const createdUser = await UsersDAO.findById(user.id);
 
   const token = generateToken(user);
 

@@ -12,14 +12,12 @@ class UserDao {
 		return await User.create(user);
 	}
 
-	async findById(_id) {
-		return await User.findById(_id)
-			.select('-__v -createdAt -updatedAt -password');
+	async findById(id) {
+		return await User.findByPk(id);
 	}
 
 	async findByEmail(email) {
-		return await User.findOne({ email })
-			.select('-__v -createdAt -updatedAt');
+		return await User.findOne({ where: { email }});
 	}
 }
 
