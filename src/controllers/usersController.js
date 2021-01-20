@@ -9,13 +9,11 @@ async function register(req) {
   }
 
   const user = await UsersDAO.create(req.body);
-  console.log('USER CREATED BY CREATE', user);
-
-  const createdUser = await UsersDAO.findById(user.id);
+  user.password = undefined ;
 
   const token = generateToken(user);
 
-  return { user: createdUser, token };
+  return { user, token };
 }
 
 export default {
