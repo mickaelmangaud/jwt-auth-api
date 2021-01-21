@@ -24,9 +24,9 @@ const User = sequelize.define('User', {
       user.password = hash;
     }
   },
-  defaultScope: {
-    attributes: { exclude: ['password'] }
-  }
+  // defaultScope: {
+  //   attributes: { exclude: ['password'] }
+  // }
 });
 
 User.sync({ force:true }).then(() => {
