@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize';
+import { logger } from '../utils';
 
 export const sequelize = new Sequelize(
   'postgres://mickael:mickael@localhost:5432/authapi', 
@@ -6,5 +7,9 @@ export const sequelize = new Sequelize(
 )
 
 sequelize.authenticate()
-  .then(() => console.log(`[POSTGRES]: Connection OK`))
-  .catch(error => console.log(`[POSTGRES]: Error: ${error}`));
+  .then(() => {
+    logger.info(`[POSTGRES]: Connection OK`);
+  })
+  .catch(error => {
+    logger.error(`[POSTGRES]: Error: ${error}`)
+  });

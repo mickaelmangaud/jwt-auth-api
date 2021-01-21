@@ -1,18 +1,22 @@
 import { Router } from 'express';
 import { AuthController } from '../controllers';
-import { sendResponse } from '../utils';
+import { sendResponse, logger } from '../utils';
 import { StatusCodes } from 'http-status-codes';
 import { InvalidPayloadError } from '../errors';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
+import addFormats from 'ajv-formats';
 import loginSchema from '../validation/login.schema.json';
 
 const router = new Router();
 const ajv = new Ajv({ allErrors: true });
+addFormats(ajv);
 ajvErrors(ajv);
 const validateLogin = ajv.compile(loginSchema);
 
 router.post('/login', (req, res, next) => {
+  logger.info(`[ROUTE]: /auth/login with payload ${JSON.stringify(req.body)}`);
+
   const isValidCredentials = validateLogin(req.body);
   if (!isValidCredentials) {
     const errors = validateLogin.errors.map(error => error.message);
