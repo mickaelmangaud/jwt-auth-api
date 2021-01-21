@@ -1,19 +1,11 @@
 import { Router } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { UsersController } from '../controllers';
 import { sendResponse, logger } from '../utils';
-import { StatusCodes } from 'http-status-codes';
 import { InvalidPayloadError } from '../errors';
-import Ajv from 'ajv';
-import ajvErrors from 'ajv-errors';
-import addFormats from 'ajv-formats';
-import registerSchema from '../validation/register.schema.json';
-import usersController from '../controllers/usersController';
+import { validateRegistration } from '../validation';
 
 const router = new Router();
-const ajv = new Ajv({ allErrors: true });
-addFormats(ajv);
-ajvErrors(ajv);
-const validateRegistration = ajv.compile(registerSchema);
 
 router.put('/register', async (req, res, next) => {
   logger.info(`[PUT]: /users/register with payload: ${JSON.stringify(req.body)}`);

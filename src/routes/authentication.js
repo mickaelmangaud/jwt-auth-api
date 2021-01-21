@@ -1,18 +1,11 @@
 import { Router } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { AuthController } from '../controllers';
 import { sendResponse, logger } from '../utils';
-import { StatusCodes } from 'http-status-codes';
 import { InvalidPayloadError } from '../errors';
-import Ajv from 'ajv';
-import ajvErrors from 'ajv-errors';
-import addFormats from 'ajv-formats';
-import loginSchema from '../validation/login.schema.json';
+import { validateLogin } from '../validation';
 
 const router = new Router();
-const ajv = new Ajv({ allErrors: true });
-addFormats(ajv);
-ajvErrors(ajv);
-const validateLogin = ajv.compile(loginSchema);
 
 router.post('/login', (req, res, next) => {
   logger.info(`[ROUTE]: /auth/login with payload ${JSON.stringify(req.body)}`);
