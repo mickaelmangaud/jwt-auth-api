@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 import { logger } from '../utils';
 
 export const sequelize = new Sequelize(
-  'postgres://mickael:mickael@localhost:5432/authapi', 
+  process.env.DATABASE_URL, 
   { logging: false }
 )
 
