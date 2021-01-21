@@ -7,7 +7,7 @@
     "email": {
       "description": "User email",
       "type": "string",
-      "minLength": 6
+      "format": "email"
     },
     "password": {
       "description": "User password",
@@ -22,7 +22,7 @@
   "additionalProperties": false,
   "errorMessage": {
     "properties": {
-      "email": "Email should be minimum 6 caracters",
+      "email": "Email should be minimum 6 caracters, type: string and format: email",
       "password": "Password should be minimum 6 caracters"
     }
   }
