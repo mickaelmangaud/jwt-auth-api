@@ -5,7 +5,6 @@ export const logger = winston.createLogger({
   format: format.combine(
     format.colorize(),
     format.align(),
-    format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`),
     winston.format.json(),
   ),
   transports: [
