@@ -1,5 +1,5 @@
 import { UsersDAO } from '../dao';
-import { ConflictError } from '../errors';
+import { ConflictError, NotFoundError } from '../errors';
 import { generateToken, logger } from '../utils';
 
 async function register(req) {
@@ -17,6 +17,16 @@ async function register(req) {
   return { user, token };
 }
 
+async function deleteById(id) {
+  const rowsDeleted = await UsersDAO.deleteById(id);
+  if (rowsDeleted < 1) {
+    throw new NotFoundError(`User with id ${id} not found`);
+  }
+
+  return { message: `User with id ${id} deleted` }
+}
+
 export default {
   register,
+  deleteById
 };
